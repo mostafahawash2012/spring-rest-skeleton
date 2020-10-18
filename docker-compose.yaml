@@ -1,0 +1,29 @@
+version: '3'
+services:
+  mysql-container:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=customer-care
+      - MYSQL_PASSWORD=root
+    ports:
+      - 3307:3306
+    networks:
+      - spring-boot-mysql-network
+  customer-care-api:
+    image: customer-crud-0.0.1:latest
+    depends_on:
+      - mysql-container
+    ports:
+      - 8081:8080
+    environment:
+      - DATABASE_HOST=mysql-container
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=root
+      - DATABASE_NAME=customer-care
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring-boot-mysql-network
+networks:
+  spring-boot-mysql-network:
+    driver: bridge

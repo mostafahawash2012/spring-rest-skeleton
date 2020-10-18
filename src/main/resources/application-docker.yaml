@@ -1,0 +1,3 @@
+spring:
+  datasource:
+    url: jdbc:mysql://mysql-container:3306/customer-care?allowPublicKeyRetrieval=true&useSSL=false
